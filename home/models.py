@@ -94,7 +94,7 @@ class Product(models.Model):
 class Cart(models.Model):
     username = models.CharField(max_length=200)
     slug = models.CharField(max_length=500)
-    items = models.ForeignKey(Product, on_delete=models.CASCADE)
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
     total = models.FloatField()
     checkout = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True) #date database ma automatically aaidinxa
