@@ -46,13 +46,13 @@
                                             {% endif %}
                                             <td>
                                                 <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="1">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                                    <button class="btn-minus"><a href="/reduce_qty/{{cart.slug}}"><i class="fa fa-minus"></i></a></button>
+                                                    <input type="text" value="{{cart.quantity}}">
+                                                    <button class="btn-plus"><a href="/add_to_cart/{{cart.slug}}"><i class="fa fa-plus"></i></a></button>
                                                 </div>
                                             </td>
                                             <td>${{cart.total}}</td>
-                                            <td><button><i class="fa fa-trash"></i></button></td>
+                                            <td><button><a href="/delete_cart/{{cart.slug}}"><i class="fa fa-trash"></i></a></button></td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -73,9 +73,9 @@
                                     <div class="cart-summary">
                                         <div class="cart-content">
                                             <h1>Cart Summary</h1>
-                                            <p>Sub Total<span>$99</span></p>
-                                            <p>Shipping Cost<span>$1</span></p>
-                                            <h2>Grand Total<span>$100</span></h2>
+                                            <p>Sub Total<span>${{cart_total}}</span></p>
+                                            <p>Shipping Cost<span>${{extra_charges}}</span></p>
+                                            <h2>Grand Total<span>${{all_total}}</span></h2>
                                         </div>
                                         <div class="cart-btn">
                                             <button>Update Cart</button>

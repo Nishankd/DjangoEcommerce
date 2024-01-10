@@ -110,11 +110,11 @@ def add_to_cart(request, slug):
         original_price = price
 
     if Cart.objects.filter(slug=slug, username=username, checkout=False).exists(): #already cart ma xa vane kati wota xa yo slug vayeko product
-        quantity = Cart.objects.get(slug=slug).quantity
+        quantity = Cart.objects.get(slug=slug, username=username, checkout=False).quantity
         quantity += 1
         total = original_price * quantity
         Cart.objects.filter(slug=slug, username=username, checkout=False).update(
-            quantity=quantity + 1,
+            quantity=quantity,
             total=total
         )
     else: #first time add to cart ko lagi tala ko value database ma halni
@@ -125,11 +125,47 @@ def add_to_cart(request, slug):
             total=original_price
         ).save()
 
-    return redirect('/')
+    return redirect('/cart')
 
 
 class CartView(BaseView):
     def get(self, request):
+        cart_total = 0
         username = request.user.username
         self.views['cart_view'] = Cart.objects.filter(username=username, checkout=False)
+        for i in self.views['cart_view']:
+            cart_total = cart_total + i.total
+        self.views['cart_total'] = cart_total
+        self.views['extra_charges'] = 50
+        self.views['all_total'] = cart_total + 50
         return render(request, 'cart.html', self.views)
+
+
+def reduce_qty(request, slug):
+    username = request.user.username
+    price = Product.objects.get(slug=slug).price
+    discounted_price = Product.objects.get(slug=slug).discounted_price
+    if discounted_price > 0:
+        original_price = discounted_price
+    else:
+        original_price = price
+
+    if Cart.objects.filter(slug=slug, username=username, checkout=False).exists(): #already cart ma xa vane kati wota xa yo slug vayeko product
+        quantity = Cart.objects.get(slug=slug, username=username, checkout=False).quantity
+        if quantity > 1:
+            quantity -= 1
+            total = original_price * quantity
+            Cart.objects.filter(slug=slug, username=username, checkout=False).update(
+                quantity=quantity,
+                total=total
+            )
+        else:
+            messages.error(request, "Quantity is already 1")
+            return redirect('/cart')
+    return redirect('/cart')
+
+
+def delete_cart(request, slug):
+    username = request.user.username
+    Cart.objects.filter(slug=slug, username=username, checkout=False).delete() #object delete vayera janxa
+    return redirect('/cart')
