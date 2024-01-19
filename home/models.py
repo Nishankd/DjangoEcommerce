@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -81,8 +82,8 @@ class Product(models.Model):
     price = models.IntegerField()
     discounted_price = models.IntegerField()
     image = models.ImageField(upload_to='media')
-    description = models.TextField(blank=True)
-    specification = models.TextField(blank=True)
+    description = RichTextField()
+    specification = RichTextField()
     slug = models.TextField()
     label = models.CharField(choices=LABEL, max_length=50)
     stock = models.CharField(choices=STOCK, max_length=50)
