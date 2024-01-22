@@ -24,6 +24,7 @@
                                 <div class="header-slider-caption">
                                     <p>{{slider.title}}</p>
                                     <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
+                                    <a href="/wishlist" class="btn"><span>+ Add to Wish List</span></a>
                                 </div>
                             </div>
                             {% endfor %}
@@ -57,21 +58,23 @@
             </div>
         </div>
         <!-- Main Slider End -->      
-        
         <!-- Brand Start -->
         <div class="brand">
             <div class="container-fluid">
                 <div class="brand-slider">
                     {% for brand in brands %}
-                    <div class="header-slider-caption">
-                        <p>{{brand.title}}</p>
-                    <div class="brand-item"><img src="{{brand.image.url}}" alt=""></div>
+                    <div class="brand-item">
+                        <img src="{{brand.image.url}}" alt="">
+                        <div class="header-slider-caption">
+                            <p>{{brand.title}}</p>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
         <!-- Brand End -->
-        
+
         <!-- Feature Start-->
         <div class="feature">
             <div class="container-fluid">
@@ -81,7 +84,7 @@
                             <i class="fab fa-cc-mastercard"></i>
                             <h2>Secure Payment</h2>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur elit
+                                Our payment method is secure.
                             </p>
                         </div>
                     </div>
@@ -90,7 +93,7 @@
                             <i class="fa fa-truck"></i>
                             <h2>Worldwide Delivery</h2>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur elit
+                                We have delivery system around the world.
                             </p>
                         </div>
                     </div>
@@ -99,7 +102,7 @@
                             <i class="fa fa-sync-alt"></i>
                             <h2>90 Days Return</h2>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur elit
+                                If not satisfied, you can return within 90 days.
                             </p>
                         </div>
                     </div>
@@ -108,7 +111,7 @@
                             <i class="fa fa-comments"></i>
                             <h2>24/7 Support</h2>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur elit
+                                We give you 24/7 customer care support.
                             </p>
                         </div>
                     </div>
@@ -319,77 +322,5 @@
             </div>
         </div>
         <!-- Recent Product End -->
-        
-        <!-- Review Start -->
-        <div class="review">
-            <div class="container-fluid">
-                <div class="row align-items-center review-slider normal-slider">
-                    <div class="col-md-6">
-                        <div class="review-slider-item">
-                            <div class="review-img">
-                                <img src="img/review-1.jpg" alt="Image">
-                            </div>
-                            <div class="review-text">
-                                <h2>Customer Name</h2>
-                                <h3>Profession</h3>
-                                <div class="ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo finibus luctus et vitae lorem
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="review-slider-item">
-                            <div class="review-img">
-                                <img src="img/review-2.jpg" alt="Image">
-                            </div>
-                            <div class="review-text">
-                                <h2>Customer Name</h2>
-                                <h3>Profession</h3>
-                                <div class="ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo finibus luctus et vitae lorem
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="review-slider-item">
-                            <div class="review-img">
-                                <img src="img/review-3.jpg" alt="Image">
-                            </div>
-                            <div class="review-text">
-                                <h2>Customer Name</h2>
-                                <h3>Profession</h3>
-                                <div class="ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo finibus luctus et vitae lorem
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Review End -->        
-        
+
 {% endblock %}

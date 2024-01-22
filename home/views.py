@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .views import *
 from django.views.generic import View
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -169,3 +170,67 @@ def delete_cart(request, slug):
     username = request.user.username
     Cart.objects.filter(slug=slug, username=username, checkout=False).delete() #object delete vayera janxa
     return redirect('/cart')
+
+
+def checkout(request):
+    return render(request, 'checkout.html')
+
+
+class CheckoutView(View):
+    def get(self, request):
+        # Retrieve cart items for checkout
+        cart_items = Cart.objects.filter(username=request.user.username, checkout=False)
+
+        # Calculate total price
+        cart_total = sum(item.total for item in cart_items)
+
+        context = {
+            'cart_items': cart_items,
+            'cart_total': cart_total,
+            'extra_charges': 50,
+            'all_total': cart_total + 50,
+        }
+        return render(request, 'checkout.html', context)
+
+def post(self, request):
+    # Logic for handling the form submission goes here
+    # For simplicity, let's mark the items as checked out in the database
+    Cart.objects.filter(username=request.user.username, checkout=False).update(checkout=True)
+    messages.success(request, 'Order placed successfully!')
+    return redirect('checkout')
+
+@login_required
+def add_to_wishlist(request, slug):
+    user = request.user
+    product = get_object_or_404(Product, slug=slug)
+
+    # Check if the product is already in the wishlist
+    if Wishlist.objects.filter(user=user, product=product).exists():
+        # Product already in the wishlist, handle accordingly (e.g., display a message)
+        messages.info(request, "This product is already in your wishlist.")
+    else:
+        # Add the product to the wishlist
+        Wishlist.objects.create(user=user, product=product)
+        messages.success(request, "Product added to your wishlist.")
+
+    return redirect('')
+
+@login_required
+def remove_from_wishlist(request, slug):
+    user = request.user
+    product = get_object_or_404(Product, slug=slug)
+
+    # Check if the product is in the wishlist before removing
+    if Wishlist.objects.filter(user=user, product=product).exists():
+        Wishlist.objects.filter(user=user, product=product).delete()
+        messages.success(request, "Product removed from your wishlist.")
+    else:
+        messages.info(request, "This product is not in your wishlist.")
+
+    return redirect('wishlist')
+
+@login_required
+def view_wishlist(request):
+    user = request.user
+    wishlist_items = Wishlist.objects.filter(user=user)
+    return render(request, 'wishlist.html', {'wishlist_items': wishlist_items})
