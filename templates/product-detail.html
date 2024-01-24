@@ -76,6 +76,11 @@
                                         <div class="action">
                                             <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
                                             <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Buy Now</a>
+                                            <form method="post" action="{% url 'add_to_wishlist' slug=product.slug %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product_id" value="{{ product.id }}">
+                                                <button type="submit" class="btn"><span>+ Add to Wish List</span></button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

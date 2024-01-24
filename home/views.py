@@ -213,7 +213,7 @@ def add_to_wishlist(request, slug):
         Wishlist.objects.create(user=user, product=product)
         messages.success(request, "Product added to your wishlist.")
 
-    return redirect('')
+    return redirect('home')
 
 @login_required
 def remove_from_wishlist(request, slug):
